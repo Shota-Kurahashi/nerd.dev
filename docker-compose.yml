@@ -1,0 +1,27 @@
+version: "3.6"
+services:
+  graphql-engine:
+    image: hasura/graphql-engine:v2.25.0
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.dev
+    restart: always
+    depends_on:
+      data-connector-agent:
+        condition: service_healthy
+  data-connector-agent:
+    image: hasura/graphql-data-connector:v2.23.0
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - .env.dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/v1/athena/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+volumes:
+  db_data:
