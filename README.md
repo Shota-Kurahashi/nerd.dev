@@ -6,13 +6,10 @@ nerd.app のバックエンド開発環境です。Docker 使用してます。
 
 ```
 docker compose up -d
-
 ```
 
 ## Stop project
 
 ```
-
 docker compose down
-
 ```
