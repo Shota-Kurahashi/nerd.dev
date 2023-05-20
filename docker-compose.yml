@@ -1,7 +1,9 @@
 version: "3.6"
 services:
   graphql-engine:
-    image: hasura/graphql-engine:v2.25.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     env_file:
